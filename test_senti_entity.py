@@ -18,7 +18,7 @@ CORS(app)
 
 api=Api(app)
 
-@app.route('/entities',methods=['GET'])
+@app.route('/entities',methods=['POST'])
 def entity():
     with open('entity_model.pkl', 'rb') as model_file:
         nlp = pickle.load(model_file)
@@ -37,7 +37,7 @@ def entity():
 
     return jsonify(news_entites)
 
-@app.route('/senti',methods=['GET'])
+@app.route('/senti',methods=['POST'])
 def senti():
     data=request.json
     import os
@@ -137,5 +137,6 @@ def senti():
     score = float(score)
 
     return jsonify({'sentiment':sentiment,'score':score})
+
 if __name__ == '__main__':
     app.run(debug=True,port=4001)

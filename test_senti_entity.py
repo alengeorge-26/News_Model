@@ -140,8 +140,5 @@ def senti():
     score = float(score)
 
     return jsonify({'sentiment':sentiment,'score':score})
-    # print(f'The News sentiment is: {sentiment}')
-    # print(f'The News sentiment score is: {score}')
-
 if __name__ == '__main__':
     app.run(debug=True,port=4001)

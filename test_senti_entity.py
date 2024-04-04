@@ -18,7 +18,7 @@ CORS(app)
 
 api=Api(app)
 
-@app.route('/entities',methods=['POST'])
+@app.route('/entities',methods=['GET'])
 def entity():
     with open('entity_model.pkl', 'rb') as model_file:
         nlp = pickle.load(model_file)

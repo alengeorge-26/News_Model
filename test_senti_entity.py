@@ -127,13 +127,10 @@ def senti():
 
     # Join all sentences into a single string
     content = ' '.join(text_sentences)
-    print(content)
 
     #content = "To ensure seamless travel experience and avoid inconvenience at toll plazas, National Highways Authority of India (NHAI) has advised Paytm FASTag users to procure a new FASTag issued by another bank before March 15, 2024. This will help in avoiding penalties or any double fee charges while commuting on National Highways, said Ministry of Road Transport & Highways on March 13.In line with the guidelines issued by the Reserve Bank of India (RBI) regarding restrictions on Paytm Payments Bank, the Paytm FASTags users will not be able to recharge or top-up the balance post March 15, 2024. However, they can use their existing balance to pay toll beyond the stipulated date.For any further queries or assistance related to Paytm FASTag, users can reach out to their respective banks or refer to the FAQs provided on the Indian Highways Management Company Limited (IHMCL) website, said MoRTH. NHAI has urged all Paytm FASTag users to take proactive measures to ensure a seamless travel experience on the National Highways across the country.Last month, the RBI had advised customers as well as merchants of Paytm Payments Bank Ltd (PPBL) to shift their accounts to other banks by March 15.REA"
     summary = summarize(content)
 
-    # Print the summary
-    print(summary)
     #new_sentence = "A bomb crashed on Syria"
     sentiment, score = predict(summary)
 

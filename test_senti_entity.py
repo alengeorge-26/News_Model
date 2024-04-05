@@ -18,11 +18,14 @@ CORS(app)
 
 api=Api(app)
 
+with open('entity_model.pkl', 'rb') as model_file:
+    nlp = pickle.load(model_file)
+
+with open('news-model.pkl', 'rb') as model_file:
+    model = pickle.load(model_file)
+
 @app.route('/entities',methods=['POST'])
 def entity():
-    with open('entity_model.pkl', 'rb') as model_file:
-        nlp = pickle.load(model_file)
-
     data=request.json
 
     text=data['text']
@@ -68,9 +71,6 @@ def senti():
             return_attention_mask=True,
             return_tensors='pt'
         )
-
-    with open('news-model.pkl', 'rb') as model_file:
-        model = pickle.load(model_file)
 
     def predict(sentence):
     

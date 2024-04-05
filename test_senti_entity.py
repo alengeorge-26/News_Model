@@ -73,25 +73,21 @@ def senti():
         model = pickle.load(model_file)
 
     def predict(sentence):
-        # We need Token IDs and Attention Mask for inference on the new sentence
+    
         test_ids = []
         test_attention_mask = []
 
-        # Apply the tokenizer
         encoding = preprocessing(sentence, tokenizer)
 
-        # Extract IDs and Attention Mask
         test_ids.append(encoding['input_ids'])
         test_attention_mask.append(encoding['attention_mask'])
         test_ids = torch.cat(test_ids, dim=0)
         test_attention_mask = torch.cat(test_attention_mask, dim=0)
 
-        # Forward pass, calculate logit predictions
         with torch.no_grad():
             output = model(test_ids.to(device), token_type_ids=None, attention_mask=test_attention_mask.to(device))
         logits = output.logits.cpu().numpy().flatten()
         
-        # Apply softmax to convert logits to probabilities
         probabilities = np.exp(logits) / np.sum(np.exp(logits))
         
         labels = np.argmax(logits)
@@ -125,13 +121,10 @@ def senti():
 
     text_sentences = data['text_sentences']
 
-    # Join all sentences into a single string
     content = ' '.join(text_sentences)
 
-    #content = "To ensure seamless travel experience and avoid inconvenience at toll plazas, National Highways Authority of India (NHAI) has advised Paytm FASTag users to procure a new FASTag issued by another bank before March 15, 2024. This will help in avoiding penalties or any double fee charges while commuting on National Highways, said Ministry of Road Transport & Highways on March 13.In line with the guidelines issued by the Reserve Bank of India (RBI) regarding restrictions on Paytm Payments Bank, the Paytm FASTags users will not be able to recharge or top-up the balance post March 15, 2024. However, they can use their existing balance to pay toll beyond the stipulated date.For any further queries or assistance related to Paytm FASTag, users can reach out to their respective banks or refer to the FAQs provided on the Indian Highways Management Company Limited (IHMCL) website, said MoRTH. NHAI has urged all Paytm FASTag users to take proactive measures to ensure a seamless travel experience on the National Highways across the country.Last month, the RBI had advised customers as well as merchants of Paytm Payments Bank Ltd (PPBL) to shift their accounts to other banks by March 15.REA"
     summary = summarize(content)
 
-    #new_sentence = "A bomb crashed on Syria"
     sentiment, score = predict(summary)
 
     score = float(score)
